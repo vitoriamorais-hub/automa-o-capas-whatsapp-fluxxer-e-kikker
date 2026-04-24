@@ -1,0 +1,110 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.card {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    width: 900px;
+    max-width: 95%;
+}
+
+h1 { color: #0b4d4f; margin-bottom: 5px; }
+p  { color: #666; margin-top: 0; }
+hr { border: 0; border-top: 1px solid #eee; margin: 20px 0; }
+
+.main-content {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.controls, .preview-area { flex: 1; }
+
+input[type="file"] { margin-bottom: 10px; }
+
+canvas {
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    background-color: #fff;
+    max-width: 100%;
+}
+
+/* ============================
+   Seletor de Produto
+   ============================ */
+.product-selector {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.btn-product {
+    flex: 1;
+    padding: 12px 10px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    color: #555;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-product:hover {
+    border-color: #0b4d4f;
+    background-color: #f0f8f8;
+    color: #0b4d4f;
+}
+
+.btn-product.active {
+    border-color: #0b4d4f;
+    background-color: #e6f4f4;
+    color: #0b4d4f;
+    box-shadow: 0 0 0 3px rgba(11, 77, 79, 0.15);
+}
+
+/* ============================
+   Botões Principais
+   ============================ */
+.btn-gerar {
+    background-color: #0b4d4f;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-gerar:hover { background-color: #083a3c; }
+
+.btn-download {
+    background-color: #25D366;
+    color: white;
+    text-decoration: none;
+    padding: 15px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    display: inline-block;
+    transition: 0.3s;
+}
+
+.btn-download:hover { background-color: #1eb956; }
+
+footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 12px;
+    color: #aaa;
+}
