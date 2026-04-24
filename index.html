@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerador de Capas WhatsApp</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <h1>Gerador de Capas WhatsApp</h1>
+        <p>Produto (Destaque) | Cliente (Apoio)</p>
+        <hr>
+        <div class="main-content">
+            <div class="controls">
+
+                <h3>1. Selecione o Produto</h3>
+                <div class="product-selector">
+                    <button class="btn-product active" id="btn-kikker" onclick="selectProduct('kikker')">
+                        Kikker
+                    </button>
+                    <button class="btn-product" id="btn-fluxxer" onclick="selectProduct('fluxxer')">
+                        Fluxxer
+                    </button>
+                </div>
+
+                <h3>2. Upload do Logo do Cliente</h3>
+                <input type="file" id="upload" accept="image/*">
+
+                <br>
+                <button onclick="generateImage()" class="btn-gerar">3. Gerar Capa</button>
+
+                <br><br>
+                <a id="download" download="capa-whatsapp.png" class="btn-download" style="display:none;"></a>
+            </div>
+            <div class="preview-area">
+                <h3>Pré-visualização (500x500)</h3>
+                <canvas id="canvas" width="500" height="500"></canvas>
+            </div>
+        </div>
+
+        <hr>
+        <footer>© 2026 Kikker - Gestão Inteligente</footer>
+    </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
