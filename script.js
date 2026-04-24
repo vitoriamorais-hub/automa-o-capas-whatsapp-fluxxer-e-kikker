@@ -2,8 +2,8 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
 // CONFIGURAÇÃO DE TAMANHOS
-const MAX_PRODUCT_SIZE = 250;  // Logo do produto — destaque
-const MAX_CLIENT_SIZE  = 180;  // Logo do cliente — apoio
+const MAX_PRODUCT_SIZE = 350;  // Logo do produto — destaque
+const MAX_CLIENT_SIZE  = 200;  // Logo do cliente — apoio
 
 // --- Produto selecionado ---
 let selectedProduct = "kikker";
