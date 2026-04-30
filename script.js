@@ -2,17 +2,17 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
 // CONFIGURAÇÃO DE TAMANHOS
-const MAX_PRODUCT_SIZE = 350;  // Logo do produto — destaque
-const MAX_CLIENT_SIZE  = 200;  // Logo do cliente — apoio
+const MAX_PRODUCT_SIZE = 220;  // Logo do produto — destaque
+const MAX_CLIENT_SIZE  = 160;  // Logo do cliente — apoio
 
 // --- Produto selecionado ---
 let selectedProduct = "kikker";
 
-// --- Função utilitária: carrega imagem e avisa no console se falhar ---
+// --- Função utilitária ---
 function loadImage(src) {
     const img = new Image();
     img.onload  = () => console.log(`✅ Imagem carregada: ${src}`);
-    img.onerror = () => console.error(`❌ ERRO ao carregar: ${src} — verifique o nome exato no GitHub`);
+    img.onerror = () => console.error(`❌ ERRO ao carregar: ${src}`);
     img.src = src;
     return img;
 }
@@ -50,10 +50,7 @@ document.getElementById("upload").addEventListener("change", function (e) {
     const reader = new FileReader();
     reader.onload = function (event) {
         clientLogo = new Image();
-        clientLogo.onload = function () {
-            clientLogoLoaded = true;
-            console.log("✅ Logo do cliente carregado com sucesso.");
-        };
+        clientLogo.onload = function () { clientLogoLoaded = true; };
         clientLogo.src = event.target.result;
     };
     if (e.target.files[0]) reader.readAsDataURL(e.target.files[0]);
@@ -69,53 +66,42 @@ function generateImage() {
     const bg   = backgrounds[selectedProduct];
     const logo = productLogos[selectedProduct];
 
-    console.log(`🎨 Gerando capa para produto: ${selectedProduct}`);
-    console.log(`   Background pronto? ${bg.complete && bg.naturalWidth !== 0}`);
-    console.log(`   Logo produto pronto? ${logo.complete && logo.naturalWidth !== 0}`);
-
     ctx.clearRect(0, 0, 500, 500);
 
     // 1. Fundo
     if (bg.complete && bg.naturalWidth !== 0) {
         ctx.drawImage(bg, 0, 0, 500, 500);
     } else {
-        // Fallback: fundo branco com aviso visual
         ctx.fillStyle = "#f0f0f0";
         ctx.fillRect(0, 0, 500, 500);
-        ctx.fillStyle = "#cc0000";
-        ctx.font = "14px sans-serif";
-        ctx.textAlign = "center";
-        ctx.fillText(`background-${selectedProduct === 'kikker' ? '' : selectedProduct + '-'}... não encontrado`, 250, 250);
-        console.warn(`⚠️ Background não carregado para: ${selectedProduct}`);
     }
 
-    // 2. Logo do produto — destaque, topo
+    // 2. Logo do produto — calcula altura real após escala
+    let productBottom = 40; // fallback
     if (logo.complete && logo.naturalWidth !== 0) {
         const ratioP = Math.min(MAX_PRODUCT_SIZE / logo.width, MAX_PRODUCT_SIZE / logo.height);
         const pw = logo.width  * ratioP;
         const ph = logo.height * ratioP;
-        ctx.drawImage(logo, (500 - pw) / 2, 60, pw, ph);
-    } else {
-        ctx.fillStyle = "#cc0000";
-        ctx.font = "14px sans-serif";
-        ctx.textAlign = "center";
-        ctx.fillText(`logo-${selectedProduct}.png não encontrado`, 250, 150);
-        console.warn(`⚠️ Logo do produto não carregado para: ${selectedProduct}`);
+        const logoY = 40; // começa mais perto do topo
+        ctx.drawImage(logo, (500 - pw) / 2, logoY, pw, ph);
+        productBottom = logoY + ph; // onde o logo do produto termina
     }
 
-    // 3. Linha divisória
+    // 3. Linha divisória — logo após o logo do produto + pequena margem
+    const lineY = productBottom + 20;
     ctx.beginPath();
-    ctx.moveTo(150, 330);
-    ctx.lineTo(350, 330);
+    ctx.moveTo(150, lineY);
+    ctx.lineTo(350, lineY);
     ctx.strokeStyle = "rgba(204, 204, 204, 0.6)";
     ctx.lineWidth = 1;
     ctx.stroke();
 
-    // 4. Logo do cliente — apoio, abaixo da linha
+    // 4. Logo do cliente — logo abaixo da linha + pequena margem
+    const clientY = lineY + 20;
     const ratioC = Math.min(MAX_CLIENT_SIZE / clientLogo.width, MAX_CLIENT_SIZE / clientLogo.height);
     const cw = clientLogo.width  * ratioC;
     const ch = clientLogo.height * ratioC;
-    ctx.drawImage(clientLogo, (500 - cw) / 2, 355, cw, ch);
+    ctx.drawImage(clientLogo, (500 - cw) / 2, clientY, cw, ch);
 
     // 5. Link de download
     const link = document.getElementById("download");
