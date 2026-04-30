@@ -2,8 +2,8 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
 const CANVAS_SIZE     = 500;
-const MAX_PRODUCT_SIZE = 220;
-const MAX_CLIENT_SIZE  = 160;
+const MAX_PRODUCT_SIZE = 320;
+const MAX_CLIENT_SIZE  = 320;
 const GAP_LINE        = 18;  // espaço entre logo do produto e a linha
 const GAP_CLIENT      = 18;  // espaço entre a linha e o logo do cliente
 
